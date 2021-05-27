@@ -157,7 +157,7 @@ def dividir_em_2_ou_3(lista: list) -> list[list]:  # [5, 3, 7, 2, 1, 4, 6]
     return ls_temp
 
 
-def ordernar_listas(listas: list[list]):  # [[5, 3], [7, 2],[ 1, 4, 6]]
+def ordernar_listas(listas: list[list]):  # [[5, 3], [7, 2], [1, 4, 6]]
     for posi in range(len(listas)):
         if(listas[posi][0] > listas[posi][1]):
             conj_temp = []
@@ -167,31 +167,37 @@ def ordernar_listas(listas: list[list]):  # [[5, 3], [7, 2],[ 1, 4, 6]]
             conj_temp = []
 
 
-def juntar_listas(listas: list[list]) -> list:  # [[3, 5], [2, 7],[ 1, 4, 6]]
-    array_acum = []
+def juntar_listas(listas: list[list]) -> list:  # [[3, 5], [2, 7], [1, 4, 6]]
+    while len(listas) > 1:
+        primeira_lista = listas[0]  # [2,3,5,7]
+        segunda_lista = listas[1]  # [1, 4, 6]
+        lista_temp = []
+        i = 0
+        j = 0
+        while i < len(primeira_lista) or j < len(segunda_lista):
+            if i == len(primeira_lista) and j < len(segunda_lista):
+                lista_temp.append(segunda_lista[j])
+                j += 1
+            elif j == len(segunda_lista) and i < len(primeira_lista):
+                lista_temp.append(primeira_lista[i])
+                i += 1
+            else:
+                if primeira_lista[i] < segunda_lista[j]:
+                    lista_temp.append(primeira_lista[i])
+                    i += 1
+                else:
+                    lista_temp.append(segunda_lista[j])
+                    j += 1
+        listas.pop(0)
+        listas.pop(0)
+        listas.insert(0, lista_temp)
 
-    lista_f = organizar_lista(array_acum)
-    return lista_f
-
-
-def organizar_lista(lista_temp):
-    esta_ordenado = False
-    acumulador = 0
-    while esta_ordenado == False:
-        esta_ordenado = True
-        for posi in range(len(lista_temp) - 1):
-            if lista_temp[posi] > lista_temp[posi + 1]:
-                acumulador = lista_temp[posi + 1]
-                lista_temp[posi + 1] = lista_temp[posi]
-                lista_temp[posi] = acumulador
-                esta_ordenado = False
-    return lista_temp
 
 def ordenar_merge_sort(lista):
     lista_2_ou_3 = dividir_em_2_ou_3(lista)
     ordernar_listas(lista_2_ou_3)
-    lista_ordenada = juntar_listas(lista_2_ou_3)  # [1, 2, 3, 4, 5, 6, 7]
-    return lista_ordenada
+    juntar_listas(lista_2_ou_3)  # [1, 2, 3, 4, 5, 6, 7]
+    return lista_2_ou_3[0]
 
 
 lista = [5, 3, 7, 2, 1, 4, 6]
