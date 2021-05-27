@@ -168,8 +168,24 @@ def ordernar_listas(listas: list[list]):  # [[5, 3], [7, 2],[ 1, 4, 6]]
 
 
 def juntar_listas(listas: list[list]) -> list:  # [[3, 5], [2, 7],[ 1, 4, 6]]
-    pass
+    array_acum = []
 
+    lista_f = organizar_lista(array_acum)
+    return lista_f
+
+
+def organizar_lista(lista_temp):
+    esta_ordenado = False
+    acumulador = 0
+    while esta_ordenado == False:
+        esta_ordenado = True
+        for posi in range(len(lista_temp) - 1):
+            if lista_temp[posi] > lista_temp[posi + 1]:
+                acumulador = lista_temp[posi + 1]
+                lista_temp[posi + 1] = lista_temp[posi]
+                lista_temp[posi] = acumulador
+                esta_ordenado = False
+    return lista_temp
 
 def ordenar_merge_sort(lista):
     lista_2_ou_3 = dividir_em_2_ou_3(lista)
