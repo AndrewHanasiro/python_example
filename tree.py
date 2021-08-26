@@ -1,20 +1,19 @@
-class tree:
-    def value(self,array, posi_array ):
-        
-        return(array[posi_array])
-    
-    def right(self,array,posi_right):
-        posi =  posi_right + int(len(posi_right)/2)
-        return(array[posi])
-    def left(self,array,posi_left):
-        posi =  posi_left - int(len(posi_left)/2)
-        return(array[posi])
+class Tree:
+    def __init__(self) -> None:
+        self.value = 0
+        self.right = None
+        self.left =  None
    
-
+def recursiva(array:list) -> Tree:
+    if len(array) == 0:
+        return None
+    posi = int(len(array)/2)
+    arvore = Tree()
+    arvore.value = array[posi]
+    arvore.left = recursiva(array[0:posi])
+    arvore.right = recursiva(array[posi+1:])
+    return arvore
 
 array_tree= [2,4,10,8,3]
-complete_tree = tree()
-posi_tree= int(len(array_tree)/2)
-root = complete_tree.value(array_tree,posi_tree)
-right=complete_tree.right(array_tree,posi_tree)
-left= complete_tree.left(array_tree,posi_tree)
+root = recursiva(array_tree)
+print(root.left.left.value)
